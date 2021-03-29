@@ -1,5 +1,6 @@
 package com.seo.app.AdminAuthentication.services;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.seo.app.AdminAuthentication.Dto.TipsDto;
 import com.seo.app.AdminAuthentication.domains.TipsDomain;
 import com.seo.app.AdminAuthentication.repository.TipsRepository;
@@ -15,15 +16,20 @@ public class TipsService {
     @Autowired
     TipsRepository tipsRepository;
 
+
     public String addTips(TipsDto tipsDto)
     {
         TipsDomain tipsDomain=new TipsDomain();
         tipsDomain.setTitle(tipsDto.getTitle());
         tipsDomain.setDescription(tipsDto.getDescription());
         tipsRepository.save(tipsDomain);
-        String responseMessage = "Tips has been register with ID " + tipsDomain.getTips_id();
+        String responseMessage = "Tips has been added";
         log.info(responseMessage);
         return responseMessage;
+    }
+
+    public Iterable<TipsDomain> getTips(){
+        return tipsRepository.findAll();
     }
 
 }

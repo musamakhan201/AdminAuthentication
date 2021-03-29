@@ -17,7 +17,7 @@ import java.util.Date;
 public class SentEmailsDomain {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int sent_email_id;
 
     @OneToOne(cascade = CascadeType.ALL)

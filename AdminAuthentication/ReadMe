@@ -27,3 +27,6 @@
 
    ````add tips url````
    http://localhost:8888/seo/add/tips
+
+   ````get tips url````
+   http://localhost:8888/seo/get/tips

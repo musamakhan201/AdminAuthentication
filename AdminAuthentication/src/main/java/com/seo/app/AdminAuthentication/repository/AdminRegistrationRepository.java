@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AdminRegistrationRepository extends JpaRepository<AdminRegistrationDomain, Integer> {
+    AdminRegistrationDomain findByUsername(String username);
 }
