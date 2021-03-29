@@ -37,6 +37,24 @@ public class AdminController {
     @Autowired
     private UpdateTipsService updateTipsService;
 
+    @Autowired
+    private PasswordChangeService passwordChangeService;
+
+    @Autowired
+    private TipsDeleteService tipsDeleteService;
+
+    @RequestMapping(value = "/delete/tip", method = RequestMethod.POST)
+    public String deleteTips(int id){
+        log.info("POST Call received at Tips/delete with ID" + id);
+        return tipsDeleteService.deleteTip(id);
+    }
+
+    @RequestMapping(value = "/password/change", method = RequestMethod.PUT)
+    public String changePassword(@RequestBody PasswordUpdateDto passwordUpdateDto){
+        log.info("POST Call received at Admin/change Password with DTO" + passwordUpdateDto);
+        return passwordChangeService.changePassword(passwordUpdateDto);
+    }
+
     @RequestMapping(value = "/tips/update", method = RequestMethod.PUT)
     public String updateTip(@RequestBody UpdateTipsDto updateTipsDto) {
         log.info("POST Call received at Tips/update with DTO" + updateTipsDto);
