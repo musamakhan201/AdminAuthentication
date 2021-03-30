@@ -1,105 +1,83 @@
 package com.seo.app.AdminAuthentication.controller;
 
-import com.seo.app.AdminAuthentication.Dto.*;
-import com.seo.app.AdminAuthentication.domains.TipsDomain;
-import com.seo.app.AdminAuthentication.services.*;
+import com.seo.app.AdminAuthentication.services.ConnectionService;
+import com.seo.app.AdminAuthentication.domain.transfer.object.AuthenticationDto;
+import com.seo.app.AdminAuthentication.domain.transfer.object.AdminLogInDto;
+import com.seo.app.AdminAuthentication.domain.transfer.object.AdminRegistrationDto;
+import com.seo.app.AdminAuthentication.services.AdminLogInService;
+import com.seo.app.AdminAuthentication.services.AdminRegistrationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequestMapping("seo")
 public class AdminController {
-    private final Logger log = LoggerFactory.getLogger(AdminController.class);
+    private final Logger log = LoggerFactory.getLogger(com.seo.app.AdminAuthentication.controller.AdminController.class);
 
     @Autowired
     private AdminRegistrationService adminRegistrationService;
 
     @Autowired
-    private ConnectionService connectionService;
+    ConnectionService connectionService;
 
     @Autowired
     private AdminLogInService adminLogInService;
 
-    @Autowired
-    private TipsService tipsService;
 
-    @Autowired
-    private AdminLogoutService adminLogoutService;
-
-    @Autowired
-    private AdminAuthenticationService adminAuthenticationService;
-
-    @Autowired
-    private AdminUpdateService adminUpdateService;
-
-    @Autowired
-    private UpdateTipsService updateTipsService;
-
-    @Autowired
-    private PasswordChangeService passwordChangeService;
-
-    @Autowired
-    private TipsDeleteService tipsDeleteService;
-
-    @RequestMapping(value = "/delete/tip", method = RequestMethod.POST)
-    public String deleteTips(int id){
-        log.info("POST Call received at Tips/delete with ID" + id);
-        return tipsDeleteService.deleteTip(id);
-    }
-
-    @RequestMapping(value = "/password/change", method = RequestMethod.PUT)
-    public String changePassword(@RequestBody PasswordUpdateDto passwordUpdateDto){
-        log.info("POST Call received at Admin/change Password with DTO" + passwordUpdateDto);
-        return passwordChangeService.changePassword(passwordUpdateDto);
-    }
-
-    @RequestMapping(value = "/tips/update", method = RequestMethod.PUT)
-    public String updateTip(@RequestBody UpdateTipsDto updateTipsDto) {
-        log.info("POST Call received at Tips/update with DTO" + updateTipsDto);
-        return updateTipsService.updateTip(updateTipsDto);
-    }
-
-    @RequestMapping(value = "/admin/update", method = RequestMethod.PUT)
-    public String updateUser(@RequestBody AdminUpdateDto adminUpdateDto) {
-        log.info("POST Call received at admin/update with DTO" + adminUpdateDto);
-        return adminUpdateService.updateUser(adminUpdateDto);
-    }
-
-    @RequestMapping(value = "/tips",method = RequestMethod.GET)
-    public Iterable<TipsDomain> getTips(){
-        return tipsService.getTips();
-    }
-
-    @RequestMapping(value = "/tips",method = RequestMethod.POST)
-    public String addTips(@RequestBody TipsDto tipsDto){
-        log.info("POST Call received at tips/Tip added with DTO" + tipsDto);
-        return tipsService.addTips(tipsDto);
-    }
-
-    @RequestMapping(value = "/admin/register", method = RequestMethod.POST)
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String registerUser(@RequestBody AdminRegistrationDto adminRegistrationDto) {
-        log.info("POST Call received at admin/register with DTO" + adminRegistrationDto);
+        log.info("POST Call received at user/register with DTO" + adminRegistrationDto);
         return adminRegistrationService.registerUser(adminRegistrationDto);
     }
 
-    @RequestMapping(value = "/admin/login", method = RequestMethod.POST)
+    @RequestMapping(value = "/login/user", method = RequestMethod.POST)
     public String addLoginUser(@RequestBody AdminLogInDto adminLogInDto) {
-        log.info("POST Call received at admin/add with DTO" + adminLogInDto);
+        log.info("POST Call received at user/add with DTO" + adminLogInDto);
         return adminLogInService.loginUser(adminLogInDto);
     }
 
     @PostMapping(path = "/auth")
-    public String getStatus(@RequestBody AuthenticationDto authenticationDto) {
-        log.info("POST Call received at admin/login with DTO" + authenticationDto);
-        return adminAuthenticationService.authenticateUser(authenticationDto);
-    }
+    public String getStatus(@RequestBody final AuthenticationDto authenticationDto) {
+        List<String> users_list = new ArrayList<>();
+        List<String> password_list = new ArrayList<>();
+        int position = -1;
+        String status = null;
+        try {
+            Connection connection = connectionService.createConnection();
+            PreparedStatement statement = connection.prepareStatement("select username,password from users");
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                users_list.add(rs.getString("username"));
+                password_list.add(rs.getString("password"));
+            }
+        } catch (Exception e) {
+            log.error(e.toString());
 
-    @PostMapping(path = "/logout")
-    public String logOut(int user_id) {
-        log.info("POST Call received at admin/logout with ID" + user_id);
-        return adminLogoutService.logoutUser(user_id);
-    }
+        }
+        String e = authenticationDto.getUsername();
+        String p = authenticationDto.getPassword();
+        for (int i = 0; i < users_list.size(); i++) {
 
+
+            if (e.equals(users_list.get(i)))
+                position = i;
+        }
+        if (position == -1) {
+            status = "username doesn't exist";
+        } else if (position >= 0) {
+            if (p.equals(password_list.get(position)))
+                status = "user exist and password is true";
+            else status = "user exist and password is false";
+
+        }
+        return status;
+    }
 }

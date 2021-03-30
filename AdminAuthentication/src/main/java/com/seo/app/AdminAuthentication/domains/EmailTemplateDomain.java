@@ -16,7 +16,7 @@ import javax.persistence.*;
 public class EmailTemplateDomain {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int email_template_id;
     private String template_name;
     private String subject;

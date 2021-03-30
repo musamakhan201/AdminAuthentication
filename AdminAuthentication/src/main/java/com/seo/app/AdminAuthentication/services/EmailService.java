@@ -1,4 +1,4 @@
-//package com.seo.app.AdminAuthentication.services;
+//package com.seo.app.UserAuthentication.services;
 //
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;

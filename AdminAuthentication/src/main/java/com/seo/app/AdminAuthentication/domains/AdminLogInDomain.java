@@ -15,12 +15,12 @@ import java.time.format.DateTimeFormatter;
 @Setter
 @Entity
 @AllArgsConstructor
-@Table(name = "login_admins")
+@Table(name = "Login_Users")
 public class AdminLogInDomain {
     private static final String DATETIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int user_id;
     private String username;
     private String password;
