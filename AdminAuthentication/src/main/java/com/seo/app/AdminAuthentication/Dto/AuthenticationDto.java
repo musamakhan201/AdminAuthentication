@@ -1,4 +1,4 @@
-package com.seo.app.AdminAuthentication.domain.transfer.object;
+package com.seo.app.AdminAuthentication.Dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,7 +10,7 @@ import lombok.ToString;
 @Getter
 @AllArgsConstructor
 public class AuthenticationDto {
-    private String username;
+    private String email;
     private String password;
 
 }

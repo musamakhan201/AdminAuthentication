@@ -1,6 +1,9 @@
 package com.seo.app.AdminAuthentication.domains;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,24 +16,18 @@ import java.time.format.DateTimeFormatter;
 @Setter
 @Entity
 @AllArgsConstructor
-@Table(name = "admins")
-public class AdminRegistrationDomain implements Serializable {
-
+@Table(name = "tips")
+public class TipsDomain implements Serializable {
     private static final String DATETIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int user_id;
-    private String first_name;
-    private String last_name;
-    private String address;
-    private String email;
-    private String password;
-    private boolean loggedIn;
+    public int tips_id;
+    private String title;
+    private String description;
     @Column(columnDefinition = "DATETIME")
     private String created_date;
-    private boolean isEnabled;
-    public AdminRegistrationDomain() {
+    public TipsDomain() {
         ZonedDateTime utc = ZonedDateTime.now(ZoneOffset.UTC);
         created_date = utc.format(DateTimeFormatter.ofPattern(DATETIME_FORMAT));
     }

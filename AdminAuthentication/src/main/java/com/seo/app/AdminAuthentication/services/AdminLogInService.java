@@ -1,7 +1,7 @@
 package com.seo.app.AdminAuthentication.services;
 
-import com.seo.app.AdminAuthentication.domain.transfer.object.AdminLogInDto;
 import com.seo.app.AdminAuthentication.domains.AdminLogInDomain;
+import com.seo.app.AdminAuthentication.Dto.AdminLogInDto;
 import com.seo.app.AdminAuthentication.repository.AdminLogInRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +19,7 @@ public class AdminLogInService {
     public String loginUser(AdminLogInDto adminLogInDto)
     {
         AdminLogInDomain adminLogInDomain=new AdminLogInDomain();
-        adminLogInDomain.setUsername(adminLogInDto.getUsername());
+        adminLogInDomain.setEmail(adminLogInDto.getEmail());
         adminLogInDomain.setPassword(adminLogInDto.getPassword());
         adminLogInRepository.save(adminLogInDomain);
         String responseMessage = "Admin Logged In";

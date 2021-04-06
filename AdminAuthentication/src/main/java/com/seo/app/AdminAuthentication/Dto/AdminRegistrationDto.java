@@ -1,4 +1,4 @@
-package com.seo.app.AdminAuthentication.domain.transfer.object;
+package com.seo.app.AdminAuthentication.Dto;
 
 import lombok.*;
 
@@ -14,6 +14,5 @@ public class AdminRegistrationDto {
     private String last_name;
     private String address;
     private String email;
-    private String username;
     private String password;
 }

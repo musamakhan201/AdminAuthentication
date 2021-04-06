@@ -1,4 +1,4 @@
-package com.seo.app.AdminAuthentication.domain.transfer.object;
+package com.seo.app.AdminAuthentication.Dto;
 
 import lombok.*;
 
@@ -9,6 +9,6 @@ import lombok.*;
 @NoArgsConstructor
 public class AdminLogInDto {
     private int user_id;
-    private String username;
+    private String email;
     private String password;
 }

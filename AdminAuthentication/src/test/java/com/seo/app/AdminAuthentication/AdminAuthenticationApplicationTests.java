@@ -1,10 +1,10 @@
-package com.seo.app.UserAuthentication;
+package com.seo.app.AdminAuthentication;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class UserAuthenticationApplicationTests {
+class AdminAuthenticationApplicationTests {
 
 	@Test
 	void contextLoads() {
