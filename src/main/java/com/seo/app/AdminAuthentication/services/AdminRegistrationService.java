@@ -53,7 +53,7 @@ public class AdminRegistrationService {
                     mailMessage.setSubject("Complete Registration For SEO Optimization App!");
                     mailMessage.setFrom("seo.optimization.helper@gmail.com");
                     mailMessage.setText("To confirm your account, please click here : "
-                            +"http://localhost:8888/seo/confirm-account?token="+confirmationToken.getConfirmationToken());
+                            +"http://139.59.80.110:8187/seo/confirm-account?token="+confirmationToken.getConfirmationToken());
                     emailSenderService.sendEmail(mailMessage);
                     String responseMessage = "Email has been sent to you";
                     log.info(responseMessage);
@@ -71,7 +71,7 @@ public class AdminRegistrationService {
                 mailMessage.setSubject("Complete Registration For SEO Optimization App!");
                 mailMessage.setFrom("seo.optimization.helper@gmail.com");
                 mailMessage.setText("To confirm your account, please click here : "
-                        +"http://localhost:8888/seo/confirm-account?token="+confirmationToken.getConfirmationToken());
+                        +"http://139.59.80.110:8187/seo/confirm-account?token="+confirmationToken.getConfirmationToken());
                 emailSenderService.sendEmail(mailMessage);
                 String responseMessage = "Email has been sent to you";
                 log.info(responseMessage);
