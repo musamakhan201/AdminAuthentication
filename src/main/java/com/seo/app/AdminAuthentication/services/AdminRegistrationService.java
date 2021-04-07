@@ -51,7 +51,7 @@ public class AdminRegistrationService {
                     confirmationTokenRepository.save(confirmationToken);
                     mailMessage.setTo(adminRegistrationDomain.getEmail());
                     mailMessage.setSubject("Complete Registration For SEO Optimization App!");
-                    mailMessage.setFrom("coretech2k20@gmail.com");
+                    mailMessage.setFrom("seo.optimization.helper@gmail.com");
                     mailMessage.setText("To confirm your account, please click here : "
                             +"http://localhost:8888/seo/confirm-account?token="+confirmationToken.getConfirmationToken());
                     emailSenderService.sendEmail(mailMessage);
@@ -69,7 +69,7 @@ public class AdminRegistrationService {
                 confirmationTokenRepository.save(confirmationToken);
                 mailMessage.setTo(adminRegistrationDomain.getEmail());
                 mailMessage.setSubject("Complete Registration For SEO Optimization App!");
-                mailMessage.setFrom("coretech2k20@gmail.com");
+                mailMessage.setFrom("seo.optimization.helper@gmail.com");
                 mailMessage.setText("To confirm your account, please click here : "
                         +"http://localhost:8888/seo/confirm-account?token="+confirmationToken.getConfirmationToken());
                 emailSenderService.sendEmail(mailMessage);
