@@ -1,5 +1,7 @@
 package com.seo.app.AdminAuthentication.services;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.seo.app.AdminAuthentication.Dto.AdminRegistrationDto;
 import com.seo.app.AdminAuthentication.domains.AdminRegistrationDomain;
 import com.seo.app.AdminAuthentication.repository.AdminRegistrationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +12,11 @@ public class ViewProfileService {
     @Autowired
     AdminRegistrationRepository adminRegistrationRepository;
 
-    public AdminRegistrationDomain viewUser(int id){
-        AdminRegistrationDomain admin=adminRegistrationRepository.getOne(id);
-        return admin;
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    public AdminRegistrationDto viewUser(int id){
+        return objectMapper.convertValue(adminRegistrationRepository.findById(id).get(), AdminRegistrationDto.class);
     }
 
 }

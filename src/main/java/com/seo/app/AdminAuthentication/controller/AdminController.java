@@ -48,7 +48,7 @@ public class AdminController {
     private ViewProfileService viewProfileService;
 
     @RequestMapping(value = "/profile",method = RequestMethod.GET)
-    public AdminRegistrationDomain getAdmin(@RequestParam(value = "user_id") int id){
+    public AdminRegistrationDto getAdmin(@RequestParam(value = "user_id") int id){
         return viewProfileService.viewUser(id);
     }
 
